@@ -5,7 +5,6 @@ import static io.restassured.RestAssured.given;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
 
 public class GetRequest {
 		
@@ -16,33 +15,41 @@ public class GetRequest {
 		RestAssured.port=8080;
 		RestAssured.basePath="/student/list";
 		
-		RequestSpecification req=given();
 		
-		
-		//content type =json/xml
-		req=req.contentType(ContentType.JSON);
-		
-		//setting the header
-		req=req.header("X","y");
-		
-		//Loging the request
-		
-		req=req.log().all();
+		Response resp=given().contentType(ContentType.JSON).header("X","Y").log().all().get();
 		
 		/*
 		 * GETTING THE CONTENT TYPE IN RESPONSE
 		 * HEADER IN RESPOPNSE
 		 * CHECK RESPONSE TYPE
 		 * STATUS CODE
-		 * */
+		 */
+		
 
+		System.out.println(resp.getContentType());
+		System.out.println(resp.getStatusCode());
+		System.out.println(resp.getHeaders());
+		System.out.println(resp.getTime());
+	
+		
+		/*	
+		 *This is the explanation of the above line 
+		
+		RequestSpecification req=given();
+			
+		
+		req=req.contentType(ContentType.JSON);  //content type =json/xml
+		
+		req=req.header("X","y");   //setting the header
+		
+		
+		req=req.log().all();   //Loging the request
+		
+	
+		/*
 		Response response=req.get();//return the object of response class
 
-		System.out.println(response.getContentType());
-		System.out.println(response.getStatusCode());
-		System.out.println(response.getHeaders());
-		System.out.println(response.getTime());
-		/*
+		
 		response.print();
 				*/
 	}
